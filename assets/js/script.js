@@ -12,6 +12,7 @@ const btnBuscar = document.getElementById("btn-buscar");
 const contenedorPadre = document.getElementById("contenedor-data");
 const urlDragonBall = "https://dragonball-api.com/api/characters";
 const urlHarryPotter = "https://hp-api.onrender.com/api/characters";
+const btnMostrar = document.getElementById("btnMostrar");
 
 const cargarDatos = async (url) => {
   try {
@@ -47,33 +48,8 @@ const verDetalles = async (id) => {
     console.log(error);
   }
 };
-
-// para harry potter
-// btnBuscar.addEventListener("click", async () => {
-//   const dataPersonajes = await cargarDatos(urlHarryPotter);
-
-//   dataPersonajes.forEach((personaje) => {
-//     contenedorPadre.innerHTML += `
-//         <div class="col-3 pb-2 d-flex justify-content-center">
-//           <div class="card">
-//             <img
-//               class="card-img-top"
-//               src=${personaje.image}
-//             />
-//             <div class="card-body">
-//               <h5 class="card-title">${personaje.name}</h5>
-//               <p class="card-text">${personaje.race || "Sin Raza"} - ${
-//       personaje.gender
-//     }</p>
-//             </div>
-//           </div>
-//         </div>
-//     `;
-//   });
-// });
-
 // para dragon ball
-btnBuscar.addEventListener("click", async () => {
+btnMostrar.addEventListener("click", async () => {
   const data = await cargarDatos(urlDragonBall);
   const dataPersonajes = data.items;
 
@@ -89,7 +65,7 @@ btnBuscar.addEventListener("click", async () => {
               />
               <div class="card-body">
                 <h5 class="card-title">${personaje.name}</h5>
-                <p class="card-text">${personaje.race} - ${personaje.gender}</p>
+                <p class="card-text">${personaje.race}  ${personaje.gender}</p>
                 <button class="btn btn-success btn-ver-detalles">Ver más</button>
               </div>
             </div>
@@ -103,7 +79,6 @@ contenedorPadre.addEventListener("click", (e) => {
     // accediendo al padre mas cercano
     const cardPadre = e.target.closest(".col-3");
     const id = cardPadre.dataset.id;
-
     verDetalles(id);
   }
 });

@@ -1,3 +1,6 @@
+h1{
+  color: orangered;
+}
 .card {
   width: 200px;
   border-radius: 16px;
@@ -17,4 +20,7 @@
 /* Efecto al hacer hover SOLO sobre la imagen */
 .card img:hover {
   transform: scale(1.1);
+}
+footer{
+  background-color: orange;
 }
