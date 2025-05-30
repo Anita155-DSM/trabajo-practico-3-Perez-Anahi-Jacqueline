@@ -10,9 +10,10 @@
 
 const btnBuscar = document.getElementById("btn-buscar");
 const contenedorPadre = document.getElementById("contenedor-data");
-const urlDragonBall = "https://dragonball-api.com/api/characters";
+const urlDragonBall = "https://dragonball-api.com/api/characters?limit=58";
 const urlHarryPotter = "https://hp-api.onrender.com/api/characters";
-const btnMostrar = document.getElementById("btnMostrar");
+const btnRefresh = document.getElementById("btnRefresh");
+
 
 const cargarDatos = async (url) => {
   try {
@@ -48,19 +49,19 @@ const verDetalles = async (id) => {
     console.log(error);
   }
 };
-// para dragon ball
-btnMostrar.addEventListener("click", async () => {
+// boton refesh para volver a cargar a todos los personajes
+btnRefresh.addEventListener("click", async () => {
   const data = await cargarDatos(urlDragonBall);
   const dataPersonajes = data.items;
 
   console.log(dataPersonajes);
 
-  dataPersonajes.forEach((personaje) => {
+  dataPersonajes.forEach((personaje) => {   //carta de los personajes
     contenedorPadre.innerHTML += `
-          <div class="col-3 pb-2 d-flex justify-content-center" data-id=${personaje.id}>
+          <div class="col-3 pb-3 mt-3 mb-2 d-flex justify-content-center" data-id=${personaje.id}>
             <div class="card">
               <img
-                class="card-img-top"
+                class="card-img-top" id="imagenP"
                 src=${personaje.image}
               />
               <div class="card-body">

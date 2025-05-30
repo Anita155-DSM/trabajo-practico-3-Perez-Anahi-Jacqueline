@@ -12,11 +12,11 @@
     />
     <title>Fetch</title>
   </head>
-  <body class="bg-dark">
+  <body>
     <div class="container text-center">
       <div class = "container text-center" id="btn-busqueda"> 
-        <h1 class="text-center mt-5">Dragon Ball API</h1>
-        <div class="input-group mb-5 mt-4 justify-content-center"><!-- BARRA DE BUSQUEDA-->
+        <img src="/assets/css/img/DBZimage.png" alt="IMG DBZ" id="logo">
+        <div class="input-group mb-4 mt-4 justify-content-center"><!-- BARRA DE BUSQUEDA-->
           <input
             type="text"
             id="search-input"
@@ -24,8 +24,8 @@
             placeholder="Busca a tu personaje favorito..."
             aria-label="Buscar personaje"
           />
-          <button class="btn btn-primary" type="button" id="btn-search">Buscar</button>
-          <button id="btnMostrar" class="btn btn-primary ms-2" type="button">Ver Todos</button> <!-- BTN DE VER TODOS LOS PERSONAJES--> 
+          <button class="btn btn-warning" type="button" id="btnBuscar">Buscar</button>
+          <button id="btnRefresh" class="btn btn-warning ms-2" type="button">Refresh</button> <!-- BTN DE VER TODOS LOS PERSONAJES--> 
         </div>
       </div>
       <div id="contenedor-data" class="row">
@@ -53,6 +53,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="/assets/js/script.js"></script>
-    <footer class="text-white text-center py-3 mt-auto">@Perez Anahi Jacqueline</footer>
+    <footer class="bg-warning text-dark text-center py-3 mt-auto">@Perez Anahi Jacqueline 2025</footer>
   </body>
 </html>
