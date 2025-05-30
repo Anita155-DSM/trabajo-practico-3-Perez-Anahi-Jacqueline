@@ -46,3 +46,10 @@ h1{
 .card img:hover {
   transform: scale(1.1);
 }
+#modal{
+  justify-content: center;
+  width: 200px;
+  border-radius: 18px;
+  overflow: hidden;
+  color: white;
+}

@@ -4,6 +4,9 @@ const contenedorPadre = document.getElementById("contenedor-data");
 const urlDragonBall = "https://dragonball-api.com/api/characters?limit=58";
 const URL_DRAGON_BALL_BASE = "https://dragonball-api.com/api/characters"; // URL base, este sin límites
 const btnRefresh = document.getElementById("btnRefresh");
+const characterDetailModalElement = document.getElementById("characterDetailModal");
+const characterDetailModal = characterDetailModalElement ? new bootstrap.Modal(characterDetailModalElement) : null;
+const characterDetailContent = document.getElementById("characterDetailContent");
 
 const cargarDatos = async (url) => {
   try {
@@ -22,19 +25,43 @@ const cargarDatos = async (url) => {
 };
 
 const verDetalles = async (id) => {
+  // Verificación de si el modal y su contenido existen antes de usarlos
+  if (!characterDetailModal || !characterDetailContent) {
+    console.error("Error: Elementos del modal no encontrados o modal no inicializado.");
+    alert("Hubo un problema al intentar mostrar los detalles del personaje.");
+    return; // Detiene la ejecución si los elementos del modal no están listos
+  }
+
   try {
-    const response = await fetch(`${URL_DRAGON_BALL_BASE}/${id}`);
+    const data = await cargarDatos(`${URL_DRAGON_BALL_BASE}/${id}`); // Reutilizamos cargarDatos
 
-    if (!response.ok) { 
-      throw new Error("Error en la API AL OBTENER DETALLES"); 
-    }
-
-    const data = await response.json(); 
-
+    characterDetailContent.innerHTML = `
+       <img src="${data.image}" class="img-fluid mb-3" alt="${data.name}" id="modal">
+       <h5>Nombre: ${data.name}</h5>
+       <p><strong>Raza:</strong> ${data.race}</p>
+       <p><strong>Género:</strong> ${data.gender}</p>
+       <p><strong>Descripción:</strong> ${
+       data.description || "No hay descripción disponible."
+      }</p>
+      ${
+        data.transformations && data.transformations.length > 0
+           ? `<p><strong>Transformaciones:</strong> ${data.transformations
+              .map((t) => t.name)
+              .join(", ")}</p>`
+            : ""
+      }
+      ${
+        data.originPlanet
+          ? `<p><strong>Planeta de Origen:</strong> ${data.originPlanet}</p>`
+          : ""
+      }
+      <p><strong>Ki:</strong> ${data.ki}</p>
+      <p><strong>Máximo Ki:</strong> ${data.maxKi}</p>
+    `;
+    characterDetailModal.show(); // Mostrar el modal
   } catch (error) {
-    console.log(error);
-    // Mostrar un mensaje si ocurrE un error al consultar la API
-    contenedorPadre.innerHTML = `<p class="text-white">Ocurrió un error al cargar los personajes ¡Intenta nuevamente más tarde!</p>`;
+    console.error("Error en verDetalles:", error);
+    alert("Error al cargar los detalles del personaje, por favor, intenta de nuevo");
   }
 };
 //FUNCIONESS
@@ -79,7 +106,7 @@ const buscarPersonajes = async () => {
 
   // verificar campo de busqueda vacio
   if (nombreBusqueda === "") {
-    mostrarMensaje("Por favor, escribe el nombre de un personaje para buscar.");
+    mostrarMensaje("Por favor, escribe el nombre de un personaje para buscar");
     return;
   }
 
@@ -91,7 +118,7 @@ const buscarPersonajes = async () => {
     );
 
     if (!Array.isArray(data) || data.length === 0) {
-      mostrarMensaje("No se encontraron personajes con ese nombre."); 
+      mostrarMensaje("No se encontraron personajes con ese nombre"); 
       return;
     }
 
